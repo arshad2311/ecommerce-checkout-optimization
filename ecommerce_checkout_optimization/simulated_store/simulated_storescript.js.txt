@@ -1,0 +1,17 @@
+document.getElementById('addToCartBtn').addEventListener('click', function() {
+    document.getElementById('checkoutSection').style.display = 'block';
+    nextStep(1); // Start checkout at step 1
+});
+
+function nextStep(stepNumber) {
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById('step' + i).style.display = 'none';
+    }
+    document.getElementById('step' + stepNumber).style.display = 'block';
+    // In a real scenario, you would trigger analytics events here for each step.
+    console.log("Checkout Step:", stepNumber); // Simulate analytics event
+}
+
+function prevStep(stepNumber) {
+    nextStep(stepNumber); // Reusing nextStep for simplicity in this example
+}

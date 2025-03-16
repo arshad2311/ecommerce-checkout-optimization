@@ -1,0 +1,35 @@
+import pandas as pd
+import numpy as np
+import datetime
+
+def generate_checkout_data(num_sessions=1000):
+    """Generates simulated checkout session data."""
+    data = []
+    steps = ["AddToCart", "ShippingInfo", "PaymentInfo", "OrderConfirmation"]
+    for session_id in range(num_sessions):
+        start_time = datetime.datetime.now() - datetime.timedelta(days=np.random.randint(1, 30)) # Simulate sessions over time
+        current_time = start_time
+        completed_steps = []
+        for step in steps:
+            event_time = current_time + datetime.timedelta(minutes=np.random.randint(1, 5)) # Time spent on each step
+            current_time = event_time
+            completion_probability = 0.9  # Base completion probability, can be modified for bottlenecks
+
+            if step == "ShippingInfo":
+                completion_probability = 0.8  # Simulate a slight bottleneck at shipping info
+            elif step == "PaymentInfo":
+                completion_probability = 0.7  # Simulate a bottleneck at payment info
+
+            if np.random.rand() < completion_probability:
+                completed_steps.append(step)
+                data.append({"session_id": session_id, "step": step, "timestamp": event_time})
+            else:
+                break # Session abandoned at this step
+
+    df = pd.DataFrame(data)
+    return df
+
+if __name__ == "__main__":
+    checkout_data = generate_checkout_data(num_sessions=1000)
+    checkout_data.to_csv("simulated_checkout_data.csv", index=False)
+    print("Simulated checkout data generated and saved to simulated_checkout_data.csv")

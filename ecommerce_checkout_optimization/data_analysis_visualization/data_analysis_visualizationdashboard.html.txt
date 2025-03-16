@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout Process Dashboard</title>
+</head>
+<body>
+    <h1>E-commerce Checkout Process Dashboard</h1>
+
+    <section>
+        <h2>Checkout Funnel</h2>
+        <img src="checkout_funnel.png" alt="Checkout Funnel Chart">
+    </section>
+
+    <section>
+        <h2>Step Completion Rates</h2>
+        <img src="step_completion_rates.png" alt="Step Completion Rates Bar Chart">
+    </section>
+
+    <p>This is a simplified dashboard.  A real dashboard would be interactive and potentially use a library like Plotly Dash or similar.</p>
+</body>
+</html>

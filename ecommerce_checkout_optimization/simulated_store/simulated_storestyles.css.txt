@@ -1,0 +1,19 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+    font-family: sans-serif;
+}
+.product {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.checkout {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+.checkout-step {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #eee;
+}

@@ -1,0 +1,43 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the simulated data
+checkout_data = pd.read_csv("data_generation/simulated_checkout_data.csv")
+
+# 1. Funnel Analysis
+funnel_data = checkout_data['step'].value_counts().sort_index()
+funnel_steps = ["AddToCart", "ShippingInfo", "PaymentInfo", "OrderConfirmation"]
+funnel_data = funnel_data.reindex(funnel_steps, fill_value=0) # Ensure all steps are present
+
+plt.figure(figsize=(8, 6))
+plt.bar(funnel_data.index, funnel_data.values)
+plt.title('Checkout Funnel Visualization')
+plt.xlabel('Checkout Step')
+plt.ylabel('Number of Sessions Reaching Step')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.savefig("data_analysis_visualization/checkout_funnel.png")
+print("Checkout Funnel Visualization saved to data_analysis_visualization/checkout_funnel.png")
+
+
+# 2. Step Completion Rates (as percentage)
+total_sessions = checkout_data['session_id'].nunique()
+completion_rates = (funnel_data / total_sessions) * 100
+
+plt.figure(figsize=(8, 6))
+sns.barplot(x=completion_rates.index, y=completion_rates.values)
+plt.title('Checkout Step Completion Rates (%)')
+plt.xlabel('Checkout Step')
+plt.ylabel('Completion Rate (%)')
+plt.xticks(rotation=45, ha='right')
+plt.ylim(0, 100) # Set y-axis limit to 0-100%
+plt.tight_layout()
+plt.savefig("data_analysis_visualization/step_completion_rates.png")
+print("Step Completion Rates Visualization saved to data_analysis_visualization/step_completion_rates.png")
+
+
+# 3. (Optional)  More advanced analysis could be added here, e.g., time spent per step,
+#    cohort analysis (if you simulated time-based data more granularly), etc.
+
+print("\nData analysis and visualizations completed. See generated PNG files in data_analysis_visualization folder.")
